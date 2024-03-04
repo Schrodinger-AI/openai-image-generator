@@ -1,36 +1,56 @@
-export interface Trait {
+import { IsString, IsArray, IsObject, ValidateNested, IsNotEmpty, IsBase64, validate, IsOptional } from 'class-validator';
+
+export class Trait {
     name: string;
     value: string;
 }
 
-export interface ImageGenerationRequest {
+export class ImageGenerationRequest {
     seed: string;
     newTrait: Trait;
     baseImage: ImageDescription;
 }
 
-export interface ImageGenerationResponseOk {
+export class ImageGenerationResponseOk {
     requestId: string;
 }
 
-export interface ImageGenerationResponseNotOk {
+export class ImageGenerationResponseNotOk {
     error: string;
 }
 
-export interface ImageQueryRequest {
+export class ImageQueryRequest {
     requestId: string;
 }
 
-export interface ImageQueryResponseOk {
+export class ImageQueryResponseOk {
     images: ImageDescription[];
 }
 
-export interface ImageQueryResponseNotOk {
+export class ImageQueryResponseNotOk {
     error: string;
 }
 
-export interface ImageDescription {
+export class ImageDescription {
     image: string;
     traits: Trait[];
     extraData: string;
+}
+
+export class TraitValue {
+    @IsString()
+    @IsNotEmpty()
+    name: string;
+
+    @IsArray()
+    @IsString({ each: true })
+    values: string[];
+
+    @IsString()
+    @IsNotEmpty()
+    variation: string;
+}
+
+export class TraitDefinition {
+    [key: string]: TraitValue;
 }
