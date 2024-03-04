@@ -1,6 +1,6 @@
 import { validate } from "class-validator";
-import { Trait, TraitValue } from "../types/types";
 import fs from 'fs';
+import { Trait, TraitValue } from "../types/image-gen-types";
 
 export const generateSentences = async (request: { traits: Trait[] }, traitDefinitions: Map<string, TraitValue>): Promise<string[]> => {
     let sentences: string[] = [];
