@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "423f2dde-423f-4e4b-8c8a-f6c6486d9154",
+		"name": "schrodinger-image-dalle3-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32324385"
+	},
+	"item": [
+		{
+			"name": "local test",
+			"item": [
+				{
+					"name": "generate prompt",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"baseImage\": {\n    \"traits\": [\n        {\n            \"name\": \"hat\",\n            \"value\": \"ascot cap\"\n        },\n        {\n            \"name\": \"eye\",\n            \"value\": \"is wearing 3d glasses\"\n        }\n    ],\n    \"newTrait\": {\n        \"name\": \"mouth\",\n        \"value\": \"alluring\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3010/prompt/generate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3010",
+							"path": [
+								"prompt",
+								"generate"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer 0xsecret123",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3010/image/query?requestId=c11d10be-0b53-4a81-9c5e-ff38a194dbad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3010",
+							"path": [
+								"image",
+								"query"
+							],
+							"query": [
+								{
+									"key": "requestId",
+									"value": "c11d10be-0b53-4a81-9c5e-ff38a194dbad"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generate image",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"baseImage\": {\n    \"traits\": [\n        {\n            \"name\": \"hat\",\n            \"value\": \"alpine hat\"\n        },\n        {\n            \"name\": \"eye\",\n            \"value\": \"is wearing 3d glasses\"\n        }\n    ]\n  },\n    \"newTrait\": {\n        \"name\": \"mouth\",\n        \"value\": \"bewitching\"\n    },\n    \"seed\": \"123343434\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3010/image/generate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3010",
+							"path": [
+								"image",
+								"generate"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer 0xsecret123",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GCP test",
+			"item": [
+				{
+					"name": "generate prompt remote",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"imageDescription\": {\n    \"traits\": [\n        {\n            \"name\": \"hat\",\n            \"value\": \"ascot cap\"\n        },\n        {\n            \"name\": \"eye\",\n            \"value\": \"is wearing 3d glasses\"\n        }\n    ],\n    \"newTrait\": {\n        \"name\": \"mouth\",\n        \"value\": \"alluring\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.173.215.202:3010/prompt/generate",
+							"protocol": "http",
+							"host": [
+								"34",
+								"173",
+								"215",
+								"202"
+							],
+							"port": "3010",
+							"path": [
+								"prompt",
+								"generate"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer 0xsecret123",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get image remote",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://34.173.215.202:3010/image/query?requestId=430b35ef-89c7-4e0e-9d45-8f48ea659b7b",
+							"protocol": "http",
+							"host": [
+								"34",
+								"173",
+								"215",
+								"202"
+							],
+							"port": "3010",
+							"path": [
+								"image",
+								"query"
+							],
+							"query": [
+								{
+									"key": "requestId",
+									"value": "430b35ef-89c7-4e0e-9d45-8f48ea659b7b"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generate image remote",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"baseImage\": {\n    \"traits\": [\n        {\n            \"name\": \"hat\",\n            \"value\": \"alpine hat\"\n        },\n        {\n            \"name\": \"eye\",\n            \"value\": \"is wearing 3d glasses\"\n        }\n    ]\n  },\n    \"newTrait\": {\n        \"name\": \"mouth\",\n        \"value\": \"bewitching\"\n    },\n    \"seed\": \"123343434\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.173.215.202:3010/image/generate",
+							"protocol": "http",
+							"host": [
+								"34",
+								"173",
+								"215",
+								"202"
+							],
+							"port": "3010",
+							"path": [
+								"image",
+								"generate"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer 0xsecret123",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
