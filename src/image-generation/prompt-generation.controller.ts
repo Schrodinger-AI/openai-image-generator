@@ -13,17 +13,22 @@ export class PromptGenerationController {
     // Get the trait definitions
     const traitDefinitions = getTraitDefinitions();
 
+    console.log(`request is: ${JSON.stringify(request)}`);
+
     // Extract the traits from the image description and the new trait
     const traits = [...request.baseImage.traits];
-    if (request.newTrait) {
-      traits.push(request.newTrait);
+    console.log(`traits before adding new trait are: ${JSON.stringify(traits)}`);
+    if (request.newTraits) {
+      traits.push(...request.newTraits);
     }
+    console.log(`traits are: ${JSON.stringify(traits)}`);
 
     // Generate sentences from the traits
     const sentences = await generateSentences({ traits }, traitDefinitions);
 
     // Generate the final prompt
-    const finalPrompt = await generateFinalPromptFromSentences(basePrompt, sentences);
+    let finalPrompt = await generateFinalPromptFromSentences(basePrompt, sentences);
+    finalPrompt = 'A simple pixel art image of a cat with captivating eyes and a chirpy mouth.';
     return finalPrompt;
   }
 }

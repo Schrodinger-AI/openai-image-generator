@@ -19,9 +19,11 @@ export class ImageGenerationService {
 
     // Extract the traits from the image description and the new trait
     const traits = [...request.baseImage.traits];
-    if (request.newTrait) {
-      traits.push(request.newTrait);
+    if (request.newTraits) {
+      traits.push(...request.newTraits);
     }
+
+    console.log(`traits are: ${JSON.stringify(traits)}`);
 
     try {
       let sentences = await generateSentences({ traits }, traitDefinitions);
@@ -29,7 +31,14 @@ export class ImageGenerationService {
       console.log(`sentences derived from traits are: ${sentences}`);
 
       // Generate the final prompt
-      const finalPrompt = await generateFinalPromptFromSentences(basePrompt, sentences);
+      let finalPrompt = await generateFinalPromptFromSentences(basePrompt, sentences);
+      finalPrompt = `DMT Prompt: ${finalPrompt}`;
+
+      const seed = request.seed;
+      if(seed) {
+        finalPrompt = `${finalPrompt} Seed: ${seed}`;
+      }
+
 
       console.log(`finalPrompt is: ${finalPrompt}`);
 

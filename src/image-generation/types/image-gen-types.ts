@@ -7,7 +7,7 @@ export class Trait {
 
 export class ImageGenerationRequest {
     seed: string;
-    newTrait: Trait;
+    newTraits: Trait[];
     baseImage: ImageDescription;
 }
 

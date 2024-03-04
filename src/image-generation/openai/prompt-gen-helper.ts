@@ -40,7 +40,7 @@ export const generateSentences = async (request: { traits: Trait[] }, traitDefin
     return sentences;
 }
 
-export const basePrompt = "Rephrase the following to create a logical sentence: ";
+export const basePrompt = "Rephrase the following to create a logical sentence: A simple pixel art image of a cat ";
 
 export function getTraitDefinitions(): Map<string, TraitValue> {
     // Read the JSON file and parse it into an array of TraitValue
