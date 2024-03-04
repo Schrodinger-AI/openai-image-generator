@@ -7,3 +7,4 @@ services:
     environment:
       - PORT=${PORT}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - TRAITS_PATH=${TRAITS_PATH}

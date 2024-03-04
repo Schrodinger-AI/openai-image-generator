@@ -1,5 +1,6 @@
 import { validate } from "class-validator";
 import fs from 'fs';
+import * as path from 'path';
 import { Trait, TraitValue } from "../types/image-gen-types";
 
 export const generateSentences = async (request: { traits: Trait[] }, traitDefinitions: Map<string, TraitValue>): Promise<string[]> => {
@@ -43,8 +44,15 @@ export const generateSentences = async (request: { traits: Trait[] }, traitDefin
 export const basePrompt = "Rephrase the following to create a logical sentence: A simple pixel art image of a cat ";
 
 export function getTraitDefinitions(): Map<string, TraitValue> {
+
+    // Get the path from the environment variable
+    const traitsPath = process.env.TRAITS_PATH;
+
+    // Construct the absolute path
+    const absoluteTraitsPath = path.resolve(traitsPath);
+
     // Read the JSON file and parse it into an array of TraitValue
-    let traitArray: TraitValue[] = JSON.parse(fs.readFileSync('traits.json', 'utf-8'));
+    let traitArray: TraitValue[] = JSON.parse(fs.readFileSync(absoluteTraitsPath, 'utf-8'));
 
     // Convert the array into a Map
     let traitDefinitions = new Map<string, TraitValue>();
