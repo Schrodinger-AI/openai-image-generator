@@ -63,7 +63,7 @@ export class ImageGenerationService {
 
   }
 
-  async getImageData(url: string, requestId: string): Promise<string> {
+  async writeBase64ToImageFile(url: string, requestId: string): Promise<string> {
     const response = await axios.get(url, { responseType: 'arraybuffer' });
     fs.writeFileSync(`./${requestId}.png`, response.data);
     return Buffer.from(response.data, 'binary').toString('base64');
@@ -99,11 +99,13 @@ export class ImageGenerationService {
       // Create a data URL
       const dataUrl = `data:image/png;base64,${base64Image}`;
 
+      //await this.writeBase64ToImageFile(imageUrl, requestId);
+
       //prepare ImageQueryResponseOk
       const responseOk = new ImageQueryResponseOk();
       const imageDescriptionResponse = new ImageDescription();
       imageDescriptionResponse.traits = requestTraits;
-      imageDescriptionResponse.image = base64Image;
+      imageDescriptionResponse.image = dataUrl;
       responseOk.images = [imageDescriptionResponse];
       responseOk.images[0].extraData = imageUrl;
 
