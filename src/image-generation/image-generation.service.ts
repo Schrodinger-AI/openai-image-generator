@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { generateFinalPromptFromSentences, runDalle } from './openai/craft-image';
-import { ImageGenerationRequest, ImageGenerationResponseOk, ImageQueryResponseOk, ImageGenerationResponseNotOk, Trait, ImageQueryResponseNotOk, ImageDescription } from './types/image-gen-types';
+import { ImageGenerationRequest, ImageGenerationResponseOk, ImageQueryResponseOk, ImageGenerationResponseNotOk, Trait, ImageQueryResponseNotOk, ImageDescription, ImageQueryRequest } from './types/image-gen-types';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import fs from 'fs';
@@ -69,9 +69,10 @@ export class ImageGenerationService {
     return Buffer.from(response.data, 'binary').toString('base64');
   }
 
-  async getImage(requestId: string): Promise<ImageQueryResponseOk | ImageQueryResponseNotOk> {
+  async getImage(imageQueryRequest: ImageQueryRequest): Promise<ImageQueryResponseOk | ImageQueryResponseNotOk> {
 
     try {
+      const requestId = imageQueryRequest.requestId;
       const imageUrlPromise = this.imageMap.get(requestId);
       if (!imageUrlPromise) {
         throw new Error(`No image found for request ID: ${requestId}`);

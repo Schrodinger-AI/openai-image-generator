@@ -1,32 +1,32 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class Trait {
-    @ApiProperty({ description: 'The name of the trait.' })
+    @ApiProperty({ description: 'The name of the trait.', example: 'hat' })
     name: string;
 
-    @ApiProperty({ description: 'The value of the trait.' })
+    @ApiProperty({ description: 'The value of the trait.', example: 'alpine hat' })
     value: string;
 }
 
 export class ImageDescription {
-    @ApiProperty({ description: 'The image data.' })
+    @ApiProperty({ description: 'The image data.', example: 'base64ImageData' })
     image: string;
 
-    @ApiProperty({ description: 'The traits of the image.', type: [Trait] })
+    @ApiProperty({ description: 'The traits of the image.', type: [Trait], example: [{ name: 'hat', value: 'alpine hat' }, { name: 'eye', value: 'is wearing 3d glasses' }] })
     traits: Trait[];
 
-    @ApiProperty({ description: 'The extra data for the image.' })
+    @ApiProperty({ description: 'The extra data for the image.', example: 'extraData' })
     extraData: string;
 }
 
 export class ImageGenerationRequest {
-    @ApiProperty({ description: 'The seed for image generation.' })
+    @ApiProperty({ description: 'The seed for image generation.', example: '123343434' })
     seed: string;
 
-    @ApiProperty({ description: 'The new traits for the image.', type: [Trait] })
+    @ApiProperty({ description: 'The new traits for the image.', type: [Trait], example: [{ name: 'mouth', value: 'bewitching' }] })
     newTraits: Trait[];
 
-    @ApiProperty({ description: 'The base image description.', type: ImageDescription })
+    @ApiProperty({ description: 'The base image description.', type: ImageDescription, example: { traits: [{ name: 'hat', value: 'alpine hat' }, { name: 'eye', value: 'is wearing 3d glasses' }] } })
     baseImage: ImageDescription;
 }
 

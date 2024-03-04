@@ -1,7 +1,7 @@
 // image-generation.controller.ts
 import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 import { ImageGenerationService } from './image-generation.service';
-import { ImageGenerationRequest, ImageGenerationResponseOk, ImageGenerationResponseNotOk, ImageQueryResponseOk, ImageQueryResponseNotOk } from './types/image-gen-types';
+import { ImageGenerationRequest, ImageGenerationResponseOk, ImageGenerationResponseNotOk, ImageQueryResponseOk, ImageQueryResponseNotOk, ImageQueryRequest } from './types/image-gen-types';
 
 @Controller('/image')
 export class ImageGenerationController {
@@ -12,8 +12,8 @@ export class ImageGenerationController {
     return this.imageGenerationService.generateImage(request);
   }
 
-  @Get('/query')
-  getImage(@Query('requestId') requestId: string): Promise<ImageQueryResponseOk|ImageQueryResponseNotOk> {
-    return this.imageGenerationService.getImage(requestId);
+  @Post('/query')
+  getImage(@Body() imageQueryRequest: ImageQueryRequest): Promise<ImageQueryResponseOk|ImageQueryResponseNotOk> {
+    return this.imageGenerationService.getImage(imageQueryRequest);
   }
 }
