@@ -3,7 +3,7 @@ import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 import { ImageGenerationService } from './image-generation.service';
 import { ImageGenerationRequest, ImageGenerationResponseOk, ImageGenerationResponseNotOk, ImageQueryResponseOk, ImageQueryResponseNotOk } from './types/image-gen-types';
 
-@Controller('image-generation')
+@Controller('/image')
 export class ImageGenerationController {
   constructor(private readonly imageGenerationService: ImageGenerationService) {}
 
@@ -12,7 +12,7 @@ export class ImageGenerationController {
     return this.imageGenerationService.generateImage(request);
   }
 
-  @Get('/get-image')
+  @Get('/query')
   getImage(@Query('requestId') requestId: string): Promise<ImageQueryResponseOk|ImageQueryResponseNotOk> {
     return this.imageGenerationService.getImage(requestId);
   }

@@ -4,7 +4,7 @@ import { generateFinalPromptFromSentences } from './openai/craft-image';
 import { getTraitDefinitions, generateSentences, basePrompt } from './openai/prompt-gen-helper';
 import { ImageGenerationRequest } from './types/image-gen-types';
 
-@Controller('prompt-generation')
+@Controller('/prompt')
 export class PromptGenerationController {
 
   @Post('/generate')
