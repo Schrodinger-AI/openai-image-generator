@@ -1,0 +1,170 @@
+openapi: 3.0.3
+info:
+  title: Schrodinger Image Generation API
+  description: "Schrodiner Image Generator"
+  contact:
+    email: plksdr@schrodingernft.ai
+  license:
+    name: MIT
+  version: 1.0.0
+paths:
+  /image/generate:
+    post:
+      tags:
+        - image
+      summary: Generate an image using the supplied base image and new trait
+      description: Generate an image using the supplied base image and new trait
+      operationId: imageGenerate
+      requestBody:
+        description: Generate an image
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageGenerationRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponseOk'
+              example:
+                requestId: "b90f0dff-6077-4b6e-b390-ffdd0763110c"
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponseNotOk'
+              example:
+                error: 'Invalid input'
+        '422':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponseNotOk'
+              example:
+                error: 'Invalid input'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponseNotOk'
+              example:
+                error: 'Failed to create the request'
+  /image/query:
+    post:
+      tags:
+        - image
+      summary: Query the generated image
+      description: Query the generated image
+      operationId: imageQuery
+      requestBody:
+        description: Quey the generated image
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageQueryRequest'
+            example:
+              requestId: "b90f0dff-6077-4b6e-b390-ffdd0763110c"
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageQueryResponseOk'
+        '202':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponseNotOk'
+              example:
+                error: 'The result is not ready.'
+        '404':
+          description: Request Id not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponseNotOk'
+              example:
+                error: 'Request not found'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponseNotOk'
+              example:
+                error: 'Failed to query the result'
+components:
+  schemas:
+    Trait:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Hat
+        value:
+          type: string
+          example: fedora hat
+    ImageGenerationRequest:
+      type: object
+      properties:
+        seed:
+          type: string
+          pattern: "^[1-9]\\d{0,31}$"
+        newTrait:
+          $ref: '#/components/schemas/Trait'
+        baseImage:
+          $ref: '#/components/schemas/ImageDescription'
+    ImageGenerationResponseOk:
+      type: object
+      properties:
+        requestId:
+          type: string
+    ImageGenerationResponseNotOk:
+      type: object
+      properties:
+        error:
+          type: string
+    ImageQueryRequest:
+      type: object
+      properties:
+        requestId:
+          type: string
+    ImageQueryResponseOk:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageDescription'
+    ImageQueryResponseNotOk:
+      type: object
+      properties:
+        error:
+          type: string
+    ImageDescription:
+      type: object
+      properties:
+        image:
+          type: string
+        traits:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/Trait'
+        extraData:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: API_KEY
+      in: header

@@ -1,4 +1,4 @@
-import { IsString, IsArray, IsObject, ValidateNested, IsNotEmpty, IsBase64, validate } from 'class-validator';
+import { IsString, IsArray, IsObject, ValidateNested, IsNotEmpty, IsBase64, validate, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
 import fs from 'fs';
 import { ApiProperty } from '@nestjs/swagger';
@@ -33,6 +33,9 @@ export class ImageGenerationRequest {
     @ValidateNested()
     @Type(() => Trait)
     newTrait: Trait;
+
+    @IsOptional()
+    seed?: string;
 }
 
 export class ImageGenerationResponse {
