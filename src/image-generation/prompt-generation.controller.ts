@@ -1,7 +1,8 @@
 // image-generation.controller.ts
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { generateFinalPromptFromSentences } from './openai/craft-image';
-import { ImageGenerationRequest, basePrompt, generateSentences, getTraitDefinitions } from './types/types';
+import { getTraitDefinitions, generateSentences, basePrompt } from './openai/prompt-gen-helper';
+import { ImageGenerationRequest } from './types/image-gen-types';
 
 @Controller('prompt-generation')
 export class PromptGenerationController {
@@ -13,7 +14,7 @@ export class PromptGenerationController {
     const traitDefinitions = getTraitDefinitions();
 
     // Extract the traits from the image description and the new trait
-    const traits = [...request.imageDescription.traits];
+    const traits = [...request.baseImage.traits];
     if (request.newTrait) {
       traits.push(request.newTrait);
     }
