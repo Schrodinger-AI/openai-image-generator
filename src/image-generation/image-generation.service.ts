@@ -14,6 +14,9 @@ export class ImageGenerationService {
   private imageGenerationRequestMap = new Map<string, Trait[]>();
 
   async generateImage(request: ImageGenerationRequest): Promise<ImageGenerationResponseOk | ImageGenerationResponseNotOk> {
+
+    console.log(`ImageGenerationService : generateImage request is: ${JSON.stringify(request)}`); // Log the request
+
     // Get the trait definitions
     const traitDefinitions = getTraitDefinitions();
 

@@ -9,6 +9,7 @@ export class ImageGenerationController {
 
   @Post('/generate')
   generateImage(@Body() request: ImageGenerationRequest): Promise<ImageGenerationResponseOk|ImageGenerationResponseNotOk> {
+    console.log(`ImageGenerationController : generateImage request is: ${JSON.stringify(request)}`);
     return this.imageGenerationService.generateImage(request);
   }
 
